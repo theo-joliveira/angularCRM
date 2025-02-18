@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HelpComponent } from '../component/help/help.component';
+import { AuthenticationService } from './authentication.service';
 
 function checkPassword(c: AbstractControl): ValidationErrors | null {
   if (c.value.length < 5) {
@@ -20,14 +21,29 @@ function checkPassword(c: AbstractControl): ValidationErrors | null {
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  private authent = inject(AuthenticationService);
+
   protected loginForm = new FormGroup({
-    login: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    password: new FormControl('', [Validators.required, checkPassword]),
+    login: new FormControl('', {
+      validators: [Validators.required, Validators.minLength(3)],
+      nonNullable: true,
+    } ),
+
+
+    password: new FormControl('', {
+      validators: [Validators.required, checkPassword],
+      nonNullable: true,
+    }),
   });
+
+
   protected onSubmit(): void {
+    console.log('submitted');
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
-      return;
+      const {login, password} = this.loginForm.getRawValue();
+      const res = this.authent.authentUser(login, password);
+      console.log(res, 'from service');
     } else {
       console.log(this.loginForm.controls.password.errors);
     }
