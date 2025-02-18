@@ -4,6 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HelpComponent } from '../component/help/help.component';
 import { AuthenticationService } from './authentication.service';
+import { Router } from '@angular/router';
 
 function checkPassword(c: AbstractControl): ValidationErrors | null {
   if (c.value.length < 5) {
@@ -21,7 +22,8 @@ function checkPassword(c: AbstractControl): ValidationErrors | null {
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  private authent = inject(AuthenticationService);
+  private readonly authent = inject(AuthenticationService);
+  private readonly router = inject(Router);
 
   protected loginForm = new FormGroup({
     login: new FormControl('', {
@@ -47,5 +49,6 @@ export class LoginComponent {
     } else {
       console.log(this.loginForm.controls.password.errors);
     }
+    this.router.navigate(['/home']);
   }
 }

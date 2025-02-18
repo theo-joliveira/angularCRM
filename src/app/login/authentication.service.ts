@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
+import { User } from "./model/user";
 
-@Injectable({
-  providedIn: "root",
-})
-
+@Injectable({ providedIn: "root" })
 export class AuthenticationService {
-  authentUser(login: string, password: string): any {
+  constructor() {}
+
+  authentUser(login: string, password: string): User {
     return {
-      userId: 1,
+      id: 1,
       login: login,
       lastname: "Doe",
       firstname: "John",
