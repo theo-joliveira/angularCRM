@@ -2,10 +2,11 @@ import { Component, inject, OnDestroy } from '@angular/core';
 import { DemoObservableService } from '../common/demo-observable.service';
 import { map, Subscription, take } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { PhonePipe } from '../common/phone.pipe';
 
 @Component({
   selector: 'crm-home',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, PhonePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
