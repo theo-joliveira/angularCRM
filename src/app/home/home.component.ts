@@ -24,7 +24,7 @@ export class HomeComponent implements OnDestroy {
       error: (err: any) => {console.error(err)},
       complete: () => {console.log('complete')}
     });
-    
+
     this.subs.push(subs);
   }
 
