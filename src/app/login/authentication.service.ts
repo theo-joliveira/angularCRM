@@ -4,6 +4,11 @@ import { User } from "./model/user";
 const USER_STORAGE_KEY = "angular-crm.user";
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
+  disconnect(): void {
+    delete this.currentUser;
+    sessionStorage.removeItem(USER_STORAGE_KEY);
+  }
+  
   private currentUser?: User;
   constructor() {
     // Check user connected?

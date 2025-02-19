@@ -25,6 +25,13 @@ export class LoginComponent {
   private readonly authent = inject(AuthenticationService);
   private readonly router = inject(Router);
 
+  constructor() {
+    if (this.authent.authenticated) {
+      this.authent.disconnect();
+      console.log('disconnect');
+    }
+  }
+
   protected loginForm = new FormGroup({
     login: new FormControl('', {
       validators: [Validators.required, Validators.minLength(3)],
